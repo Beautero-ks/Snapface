@@ -1,26 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FaceSnap } from '../models/face-snaps.model';
+import {UpperCasePipe } from '@angular/common';
+import { Router } from '@angular/router';
+
+
+
+
 
 @Component({
   selector: 'app-face-snap',
   standalone: true,
-  imports: [],
+  imports: [UpperCasePipe],
   templateUrl: './face-snap.component.html',
   styleUrl: './face-snap.component.scss'
 })
-export class FaceSnapComponent implements OnInit {
-  title!: string;
-  description! : string;
-  created_at!: Date;
-  updated_at!: Date;
-  image_url!: string;
-  snaps! : number;
+export class FaceSnapComponent {
 
-  ngOnInit(): void {
-      this.image_url = 'https://cdn.pixabay.com/photo/2015/05/31/16/03/teddy-bear-792273_1280.jpg';
-      this.title = "Flyerstyle";
-      this.description = "Booster votre visibiliter avec les meilleurs flyers de notre platform";
-      this.created_at = new Date();
-      this.updated_at = new Date();
-      this.snaps = 10;
+  @Input() facesnaps!: FaceSnap;
+
+  constructor(private router: Router){}
+
+  onViewFaceSnap() {
+    this.router.navigateByUrl(`faceSnap/${this.facesnaps.id}`);
   }
 }
